@@ -1,0 +1,1119 @@
+Ruby All are in object:-
+
+irb(main):077:0> puts "\"with double quotes\""
+"with double quotes"
+
+irb(main):078:0> "hi"*5
+=> "hihihihihi"
+
+irb(main):079:0> "hi"+5
+TypeError: no implicit conversion of Fixnum into String
+
+
+
+irb(main):083:0> "Hi".class
+=> String
+irb(main):084:0> 100.class
+=> Fixnum
+irb(main):085:0> 10.5.class
+=> Float
+irb(main):086:0> true.class
+=> TrueClass
+irb(main):087:0> false.class
+=> FalseClass
+irb(main):088:0> puts.class
+
+=> NilClass
+
+
+
+Initialize/Getter/Setter Methods in Ruby:-
+
+class SetterGetter
+def initialize(l,b)
+@length=l
+@breadth=b
+end
+def setLength=(value)
+@length=value
+end
+def setBreadth=(value)
+@breadth=value
+end
+def displaylength
+puts "The length is #{@length}"
+end
+def dispalybreadth
+puts "The breadth is #{@breadth}"
+end
+end
+
+
+
+
+Short Cut for getter and setter in ruby:-
+
+class AttrAccessor
+attr_accessor :length
+attr_accessor :breadth
+def initialize(l,b)
+@length = l
+@breadth = b
+end
+def display
+puts "The length is #{@length} and breadth is #{@breadth}"
+end
+end
+
+=> :display
+myobject = AttrAccessor.new(100,200)
+=> #<AttrAccessor:0x000000027f3120 @length=100, @breadth=200>
+myobject.display
+The length is 100 and breadth is 200
+=> nil
+
+
+Difference between For and While Loop:-
+
+ => While loop is used in situations where we do not know how many times loop needs to be excuted beforehand.
+
+ => For loop is used where we already know about the number of times loop needs to be excuted. Typically for a index used in iteration.
+
+
+for(initialization; condition; iteration)
+{
+  // body of the loop 
+}
+
+is equivalent to
+
+initialization;
+while(condition)
+{
+  // body of the loop 
+iteration;
+}
+
+
+While Loop:-
+
+While loop we can declare it in two ways,
+
+First Way:-
+
+$i = 0
+$j = 5
+
+while($i<$j) do 
+puts "The value of $i in loop #{$i}"
+$i+=1
+end
+end
+
+
+Second Way:-
+
+$i = 0;
+$j = 5;
+begin
+puts "The value of $i in loop #{$i}"
+$i+=1
+end while($i < $j)
+
+
+ For Loop and its Alternative .each loop:-
+
+ we can declare for loop in two ways,
+
+First Way:-
+
+ for i in 0..10
+ puts "The value of i in loop #{i}"
+ end
+
+Second Way:-
+
+(0..10).each do |i|
+puts "The value of i in within the loop #{i}"
+end
+
+
+
+Different Loops in Ruby:-
+
+Times:-
+
+10.times do puts "hi" end
+
+10.times  {puts "hi" }
+
+Upto:-
+
+3.upto(10) {puts "hi"}
+
+3.upto(10) do puts "hi" end
+
+
+Upto with index number with block:-
+
+irb(main):020:0> 1.upto(5) {|i| puts "#{i}"}
+1
+2
+3
+4
+5
+=> 1
+
+Upto with index number with do end loop:-
+
+irb(main):024:0> 1.upto(5) do |i| puts i
+irb(main):025:1> end
+
+Downto with index numberwith block:-
+
+10.downto(5) { |i| puts i }
+
+Downto with index number with do end loop:-
+
+10.downto(5) do |i|
+puts i
+end
+
+Step with block:-
+
+irb(main):035:0> 1.step(22,5) { |i| puts "#{i}" }
+
+
+Step with do end loop:-
+
+irb(main):036:0> 0.step(25,2) do |i|
+irb(main):037:1* puts "#{i}"
+irb(main):038:1> end
+
+
+Break Statement:-
+
+for i in 1..5
+for j in 1..5
+break if j == 2
+print j
+end
+puts ""
+end
+
+
+Next Statement:-
+
+for i in 1..5
+for j in 1..5
+next if j == 2
+print j
+end
+puts ""
+end
+
+Redo Statement:-
+
+for i in 1..5
+for j in 1..5
+print j
+redo if j == 2
+end
+puts ""
+end
+
+Block:-
+
+Codes in the block is always enclosed within the braces({}).
+
+A block is always is invoked from a function  with the same name as that of the block.
+
+we invoke a block by using yield keyword.
+
+
+
+How to call block using yield keyword without parametes in ruby:-
+
+def test
+puts "Inside the Method"
+yield 5, 10
+end
+
+test { |*args| puts "Inside the block #{args[0]} #{args[1]}" }
+
+Inside the Method
+Inside the block
+
+
+How to call block using yield keyword wit parameter
+
+
+Method-1:-
+
+def test
+puts "Inside the Method"
+yield 5
+end
+
+test { |i| puts "Inside the block #{i}" }
+
+Method-2:-
+
+def test
+puts "Inside the Method"
+yield 5, 10
+end
+
+test { |i,j| puts "Inside the block #{i} #{j}" }
+
+Method-3:-
+
+def test
+puts "Inside the Method"
+yield 5, 10
+end
+
+test { |*args| puts "Inside the block #{args[0]} #{args[1]}" }
+
+Method-4:-
+
+def method
+puts "Method is started"
+yield("Selva", 100)
+puts "Method is ended"
+end
+
+method {
+	|i,j| puts "Method value is #{i} #{j.to_s}"
+}
+
+
+How to a block using call method:-
+
+def test(&user_defined_variable)
+user_defined_variable.call
+end
+
+test {
+	puts "Method is executed"
+}
+
+
+def test(&user_defined_variable)
+10.times do user_defined_variable.call end
+end
+
+test {
+	puts "Method is executed"
+}
+
+
+Module:-
+
+Module features is providing mixin method(multiple inheritance)
+
+Module without class declaration:-
+
+
+module ModuleOne
+
+CONSTANT_ONE=100
+
+def ModuleOne.methodone
+puts "Inside the method one in Module One"
+end
+
+def ModuleOne.methodtwo
+puts"Inside the method two Module One"
+end
+
+end
+
+module ModuleTwo
+
+CONSTANT_ONE=200
+
+def ModuleTwo.methodone
+puts "Inside the method one in Module Two"
+end
+
+def ModuleTwo.methodtwo
+puts"Inside the method two Module Two"
+end
+end
+
+puts ModuleOne::CONSTANT_ONE
+puts ModuleTwo::CONSTANT_ONE
+
+ModuleOne::methodone
+ModuleOne::methodtwo
+ModuleTwo::methodone # ModuleTwo.methodone
+ModuleTwo::methodtwo # ModuleTwo.methodtwo
+
+Module with class declaration:-
+
+module ModuleName
+class ClassName
+CONSTANTVALUE=100
+def initialize
+puts "Initialization Method"
+end
+def MethodNameOne
+puts "Method One is executed"
+end
+end
+end
+
+objectname = ModuleName::ClassName.new
+puts objectname::CONSTANTVALUE
+objectname.MethodNameOne
+
+
+require and require_relative path in ruby:-
+
+add.rb:-
+
+module Addition
+class Add
+def adding
+puts "Added successfully"
+end
+end
+end
+
+myobject =  Addition::Add.new
+myobject.adding
+
+sub.rb:-
+
+module Subtraction
+def Subtraction::subtracting
+puts "Subtracted Successfully"
+end
+end
+
+Subtraction::subtracting
+
+require.rb
+
+$LOAD_PATH << '.'
+
+require 'add.rb'
+require 'sub.rb'
+
+
+require_relative.rb
+
+require_relative 'add.rb'
+require_relative 'sub.rb'
+
+
+Include Statement:-
+
+Require and Require_relative will importing the particular file in ruby.
+
+If you want to access particular required file inside the class, you should use the include the filename or module name.
+
+include.rb
+
+$LOAD_PATH << 'addsub' #addsub is a folder name, add.rb and sub.rb is kept inside the folder
+
+require 'add.rb'
+require 'sub.rb'
+
+class ClassName
+include Addition
+def MethodName
+myobject =  Addition::Add.new
+myobject.adding
+end
+end
+
+myobject = ClassName.new
+myobject.MethodName
+
+Features of mixins:-
+
+Mixins give us a wonderfully controlled way of adding functionality to classes.
+
+Ruby does not support multiple inheritance directly. But mixin provide a facility that eliminate the problem of multiple inheritance by adding property of such inheritance to the classes.
+
+
+module A
+def a1
+puts "a1 method in module A"
+end
+def a2
+puts "a2 method in module A"
+end
+end
+
+module B
+def b1
+puts "b1 method in module B"
+end
+def b2
+puts "b2 method in module B"
+end
+end
+
+class Name
+include A
+include B
+end
+
+myobject = Name.new
+myobject.a1
+
+
+Array:-
+
+One way is with the new class method:-
+
+names = Array.new
+
+Setting the size of an array at the time of creating array
+
+names = Array.new(20)
+
+Note: You can change the size of an array in ruby any time you want.
+
+irb(main):001:0> array = Array.new
+=> []
+irb(main):002:0> array.length
+=> 0
+irb(main):003:0> array1 = Array.new(20)
+=> [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+irb(main):004:0> array1.length
+=> 20
+irb(main):005:0> 
+
+
+irb(main):034:0> array = Array.new(10, "hi")
+=> ["hi", "hi", "hi", "hi", "hi", "hi", "hi", "hi", "hi", "hi"]
+irb(main):035:0> array.length
+=> 10
+irb(main):036:0> array = Array(0..10)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+irb(main):037:0> array.length
+=> 11
+irb(main):038:0> 
+
+
+
+irb(main):054:0> array = Array(0..10)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+include:-
+
+It will whether the element is present in array or not.
+
+irb(main):056:0> array.include?(5)
+=> true
+
+first :-
+
+It will return first element of an array.
+
+irb(main):058:0> array.first
+=> 0
+
+last :-
+
+This will return the last element of an array.
+
+irb(main):059:0> array.last
+=> 10
+
+first(4) :-
+
+This will return first four element of an array.
+
+irb(main):062:0> array.first(4)
+=> [0, 1, 2, 3]
+
+index("banana") :-
+
+This will return the index of a particular element in an array.
+
+irb(main):063:0> array.index(6)
+=> 6
+
+
+reverse:-
+
+reverse the all elements in an array.
+
+irb(main):065:0> array.reverse
+=> [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+
++ :-
+
+This will addtion of two array.
+
+irb(main):067:0> array2 = Array(10..20)
+=> [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+irb(main):068:0> array + array2
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+- :-
+
+This will subtracting of two array.
+
+irb(main):071:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+irb(main):072:0> array2
+=> [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+irb(main):073:0> 
+irb(main):074:0* array-array2
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+Here array and array2 10 is common, so it is removed only that item.
+
+sort :-
+
+Ascending order of an array elements.
+
+
+irb(main):077:0> array.reverse
+=> [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+irb(main):078:0> array.reverse.sort
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+array[0,5] :-
+
+It return an elements in array which mentioned position and number of elements.
+
+irb(main):090:0> array[5,3]
+=> [5, 6, 7]
+
+Here 5 is the starting position of an array and 3 is the number of elements in an array.
+
+
+concat :-
+
+concating an two array.
+
+irb(main):091:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+irb(main):092:0> array2
+=> [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+irb(main):093:0> array.concat(array2)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+
+delete("banana") :-
+
+Removing an element in an array  based on element.
+
+irb(main):106:0> array = Array(0..11)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+irb(main):107:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+irb(main):108:0> array.delete(11)
+=> 11
+irb(main):109:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+This will remove an particular element if it is repeated multiple time also.
+
+
+delete_at(index_number) :-
+
+Removing an element in an array based on index value.
+
+irb(main):111:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+irb(main):112:0> array.delete_at(11)
+=> 11
+irb(main):113:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+inspect :-
+
+retuen an string element whole array.
+
+irb(main):121:0> array.inspect
+=> "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+
+
+empty? :-
+
+This will check whether the array is empty or not. if it is empty will return true or else return false.
+
+irb(main):122:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+irb(main):123:0> array.empty?
+=> false
+
+
+equal? :-
+
+Comparing an two array if it is equal will return true.
+
+irb(main):124:0> array2
+=> [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+irb(main):125:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+irb(main):126:0> array.equal?(array2)
+=> false
+
+a|b :-
+
+This will perform logical OR operation in an array.
+
+irb(main):129:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+irb(main):130:0> array2
+=> [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+irb(main):131:0> array | array2
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+Finally return both array with non repeated values.
+
+a&b
+
+This will perform logical AND operation in an array.
+
+irb(main):135:0> array
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+irb(main):136:0> array2
+=> [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+irb(main):137:0> array & array2
+=> [10, 11]
+
+Finally return common element in both array.
+
+
+
+Hash:-
+
+Key/Value pair
+
+Hash Declaration:-
+
+myhash = Hash.new
+
+Method - 1 :-
+
+irb(main):202:0> a = Hash.new
+=> {}
+irb(main):203:0> a={1 => "One", 2 => "Two"}
+=> {1=>"One", 2=>"Two"}
+
+Method - 2 :-
+
+irb(main):205:0> c = Hash.new
+=> {}
+irb(main):206:0> c.store("1","One")
+=> "One"
+irb(main):207:0> c.store("2","Two")
+=> "Two"
+irb(main):208:0> c
+=> {"1"=>"One", "2"=>"Two"}
+
+
+each and Each_pair:-
+
+each and each_pair both are same only.
+
+
+irb(main):222:0> hash = {"one" => 1, "two" => 2, 3 => "three", 4 => "four", "five"=>5}
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):223:0> hash.each { |k,v| puts "Key: #{k} , Value: #{v}"}
+Key: one , Value: 1
+Key: two , Value: 2
+Key: 3 , Value: three
+Key: 4 , Value: four
+Key: five , Value: 5
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):224:0> hash.each_pair { |k,v| puts "Key: #{k} , Value: #{v}"}
+Key: one , Value: 1
+Key: two , Value: 2
+Key: 3 , Value: three
+Key: 4 , Value: four
+Key: five , Value: 5
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):225:0> 
+
+
+each_key and each_value :-
+
+irb(main):228:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):229:0> hash.each_key { |k| puts puts "Key : #{k} " }
+Key : one 
+
+Key : two 
+
+Key : 3 
+
+Key : 4 
+
+Key : five 
+
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):230:0> hash.each_value { |v| puts puts "Value : #{v} " }
+Value : 1 
+
+Value : 2 
+
+Value : three 
+
+Value : four 
+
+Value : 5 
+
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):231:0> 
+
+
+keys and values :-
+
+irb(main):234:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):235:0> hash.keys
+=> ["one", "two", 3, 4, "five"]
+irb(main):236:0> hash.values
+=> [1, 2, "three", "four", 5]
+
+
+Invert :-
+
+Invert method is exchanged all keys to values and all values to keys.
+
+irb(main):240:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):241:0> hash_new = hash.invert
+=> {1=>"one", 2=>"two", "three"=>3, "four"=>4, 5=>"five"}
+irb(main):242:0> hash_new
+=> {1=>"one", 2=>"two", "three"=>3, "four"=>4, 5=>"five"}
+irb(main):243:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5}
+irb(main):244:0>
+
+
+How to create an empty hash :-
+
+myhash = Hash.new
+
+How to add element in hash :-
+
+myhash[1] = "One"
+
+myhash["two"] = 2
+
+How to access an element in an array :- key/fetch/values_at methods
+
+Method - 1 :-
+
+Fetching single value at a time.
+
+myhash[1]
+
+Method - 2 :-
+
+Fetching a single value at a time.
+
+myhash.fetch("two")
+
+Method - 3 :-
+
+Fetching multiple values at a time.
+
+myhash.values_at(1,"two")
+
+
+How to check whether the key is available in hash or not :-
+
+We can check three different ways,
+
+1. hash_key?
+2. key?
+3. include?
+
+irb(main):278:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5, 6=>"Six"}
+irb(main):279:0> hash.has_key?("one")
+=> true
+irb(main):280:0> hash.has_key?("3")
+=> false
+irb(main):281:0> hash.has_key?(3)
+=> true
+irb(main):282:0> hash.key?(3)
+=> true
+irb(main):283:0> hash.include?("five")
+=> true
+
+
+How to check whether the value is available in hash or not :-
+
+we can check the following two ways,
+
+1. has_value?
+2. value?
+
+irb(main):291:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5, 6=>"Six"}
+irb(main):292:0> hash.has_value?(5)
+=> true
+irb(main):293:0> hash.value?("1")
+=> false
+irb(main):294:0> hash.value?(1)
+=> true
+
+Dup :-
+
+Duplicating the hash using dup keyword.
+
+irb(main):295:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5, 6=>"Six"}
+irb(main):296:0> dup_hash = hash.dup
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5, 6=>"Six"}
+
+empty? :-
+
+Check whether the hash is empty or not.
+
+irb(main):297:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5, 6=>"Six"}
+irb(main):298:0> hash.empty?
+=> false
+
+
+clear :-
+
+Clearing all elements inside the hash.
+
+irb(main):299:0> hash
+=> {"one"=>1, "two"=>2, 3=>"three", 4=>"four", "five"=>5, 6=>"Six"}
+irb(main):300:0> hash.clear
+=> {}
+
+
+delete :-
+
+Deleting an element based on key.
+
+
+irb(main):323:0> hash
+=> {1=>"One", "two"=>2, 3=>"three", 4=>4}
+irb(main):324:0> hash.delete(4)
+=> 4
+irb(main):325:0> hash
+=> {1=>"One", "two"=>2, 3=>"three"}
+
+shift :-
+
+Deleting an  0-th index element of an hash.
+
+irb(main):325:0> hash
+=> {1=>"One", "two"=>2, 3=>"three"}
+irb(main):326:0> hash.shift
+=> [1, "One"]
+irb(main):327:0> hash
+=> {"two"=>2, 3=>"three"}
+
+delete_if :-
+
+deleting an element in hash based on some conditional.
+
+
+irb(main):005:0> hash
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five"}
+irb(main):006:0> hash.delete_if{ |key,value| key == 3}
+=> {1=>"One", 2=>"Two", 4=>"Four", 5=>"Five"}
+
+irb(main):008:0> hash.delete_if{ |key,value| value == "Four" }
+=> {1=>"One", 2=>"Two", 5=>"Five"}
+
+merge :-
+
+Concatinating an two hashes.
+
+irb(main):025:0> hash = {1 => "One", 2 => "Two", 3 => "Three", 4 => "Four", 5 => "Five" }
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five"}
+irb(main):026:0> dup_hash = hash.invert
+=> {"One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):027:0> hash.merge(dup_hash)
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five", "One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):028:0> hash
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five"}
+irb(main):029:0> dup_hash
+=> {"One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+
+merge! :-
+
+concating two hashes and also left array also changed.
+
+irb(main):030:0> hash
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five"}
+irb(main):031:0> dup_hash
+=> {"One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):032:0> hash.merge!(dup_hash)
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five", "One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):033:0> hash
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five", "One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):034:0> dup_hash
+=> {"One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+
+Here two hash are concatenated and also left side hash(hash) also changed.
+
+update :-
+
+update also doing same merge operation only.
+
+irb(main):037:0> hash
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five"}
+irb(main):038:0> dup_hash
+=> {"One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):039:0> hash.update(dup_hash)
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five", "One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):040:0> hash
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five", "One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+irb(main):041:0> dup_hash
+=> {"One"=>1, "Two"=>2, "Three"=>3, "Four"=>4, "Five"=>5}
+
+
+assoc :-
+
+Assoc will search in hash based on key if it is matched will return key/value or else return an nil value.
+
+irb(main):046:0> hash
+=> {1=>"One", 2=>"Two", 3=>"Three", 4=>"Four", 5=>"Five"}
+irb(main):047:0> hash.assoc(1)
+=> [1, "One"]
+irb(main):048:0> hash.assoc("One")
+=> nil
+
+
+rassoc :-
+
+Rassoc will search in hash based on value if it is matched will return key/valur or else return nil value.
+
+irb(main):049:0> hash.rassoc("One")
+=> [1, "One"]
+irb(main):050:0> hash.rassoc(1)
+=> nil
+
+
+Generating Random Number:-
+
+rand keyword is used to generate random numbers.
+
+irb(main):115:0> rand(1..10)
+=> 6
+
+
+irb(main):114:0> (0..5).map{rand(0..10)}
+=> [10, 6, 10, 8, 2, 2]
+
+
+
+rand(1..100)
+
+In order to generate same random number using srand index number,
+
+irb(main):118:0> srand 1234
+=> 1234
+irb(main):119:0> rand
+=> 0.1915194503788923
+irb(main):120:0> srand 1234
+=> 1234
+irb(main):121:0> rand
+=> 0.1915194503788923
+
+If the srand index number is same the generating the random value also same.
+
+
+Freezing Objects:-
+
+Once you freezes an object, we cannot change the value of an object.
+
+ 1. freeze an object 
+
+ 	object.freeze
+
+ 2. Syntax to check whether an object is FROZEN	 or NOT.. returns an boolean value
+ 	
+ 	object.frozen?
+
+
+
+
+class Freezes
+
+attr_accessor :length, :breadth
+
+def initialize(l,b)
+@length = l
+@breadth = b
+end
+
+end
+
+myobject = Freezes.new(5,10)
+
+puts "Length:- #{myobject.length}"
+puts "Breadth:- #{myobject.breadth}"
+
+myobject.freeze
+
+puts "Freezen" if myobject.frozen?
+
+# we cannot change the value after frozen the object
+
+myobject.length = 15
+myobject.breadth = 20
+
+puts "Length:- #{myobject.length}"
+puts "Breadth:- #{myobject.breadth}"
+
+
+PROC and LAMBDA :-
+
+"Everything is ruby are object" but ruby blocks are not object.
+
+Proc class can turn BLOCK into an object by wrapping blocks in its instance.
+
+This turns our blocks into a first class function and then we can perform all sorts of things with blocks as we can do with a normal object.
+
+
+Four ways to create a proc object :-
+
+1. Using Proc.new
+
+proc_object = Proc.new{ puts "I am proc object" }
+proc_object.call
+
+2. Using the proc method in kernal module
+
+proc_object = proc{ puts "Hello from inside the proc" }
+proc_object.call
+puts "Is proc object lambda- #{proc_object.lambda?}"
+
+3. Using the Kernal lambda methods
+
+proc_object = lambda{ puts "Hello from inside the proc" }
+proc_object.call
+
+4. IMPLICIT WAY- Two ways
+
+	1. Using YIELD statement
+	2. Using Concept of &BLOCK
+
+
+
+
+
+
+
+
+
+
+
+
+
