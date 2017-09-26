@@ -1106,6 +1106,31 @@ proc_object.call
 	2. Using Concept of &BLOCK
 
 
+Rails 5 Features :-
+
+https://rubyinrails.com/2015/09/04/what-is-new-in-rails-5-feature-changes/
+
+1.	rake task changed rails db:create and etc
+2.  we can create only api based application rails new app-name --api
+3.  rake restart is restarting the server
+4.	Active Record improvements  :-
+       where.not is introduced in rails 4 but in  rails 5 is where.or is introduced(Post.where('id = 1').or(Post.where('id = 2')))
+
+5. Action Cable freameworks
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
