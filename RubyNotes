@@ -509,7 +509,7 @@ include:-
 
 It will whether the element is present in array or not.
 
-irb(main):056:0> array.include?(5)
+irb(main):056:0> arr  
 => true
 
 first :-
@@ -1116,23 +1116,510 @@ https://rubyinrails.com/2015/09/04/what-is-new-in-rails-5-feature-changes/
 4.	Active Record improvements  :-
        where.not is introduced in rails 4 but in  rails 5 is where.or is introduced(Post.where('id = 1').or(Post.where('id = 2')))
 
-5. Action Cable freameworks
+
+Cron Job :-
+
+	* * * * * command to be executed
+	- - - - -
+	| | | | |
+	| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+	| | | ------- Month (1 - 12)
+	| | --------- Day of month (1 - 31)
+	| ----------- Hour (0 - 23)
+	------------- Minute (0 - 59)
+
+	MORE EXAMPLES
+
+		To run /path/to/command five minutes after midnight, every day, enter:
+		5 0 * * * /path/to/command
+
+		Run /path/to/script.sh at 2:15pm on the first of every month, enter:
+		15 14 1 * * /path/to/script.sh
+
+		Run /scripts/phpscript.php at 10 pm on weekdays, enter:
+		0 22 * * 1-5 /scripts/phpscript.php
+
+		Run /root/scripts/perl/perlscript.pl at 23 minutes after midnight, 2am, 4am …, everyday, enter:
+		23 0-23/2 * * * /root/scripts/perl/perlscript.pl
+
+		Run /path/to/unixcommand at 5 after 4 every Sunday, enter:
+		5 4 * * sun /path/to/unixcommand
+
+		Link :-
+		https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/
+
+
+Method Overloading :-
+
+	A class can have more then one method with the same name, but with different argument i,e different signature of the method.
+
+	You can implement different signature of method in any of the below way:
+	1 : Arguments with different data types, eg: method(int a, int b) vs method(String a, String b)
+	2:  Variable number of arguments, eg: method(a) vs method(a, b)
+	Let’s try to do method overloading in ruby.
+	create a overloading_demo.rb file and add below lines to it
+
+	Eg :-
+
+		class Person
+
+		  def print_details(name)
+		    "Hey My Name is #{name}"
+		  end
+
+		  def print_details(name,age)
+		    "Hey My Name is #{name} and #{age}"
+		  end
+		end
+
+		person1 = Person.new
+		puts person1.print_details("arun")
+		puts person1.print_details("arun",25)
+
+	Link :-
+	
+	https://codedecoder.wordpress.com/2015/04/08/method-overloading-in-ruby/
+
+
+Ruby do not support method overloading :-
+
+	In ruby there can be only one method with a given name. If there is multiple methods with the same name,the last one prevail i,e the last method will be invoked when called.
+
+	This is because  “Overloading” is a term that simply doesn’t even make sense in Ruby. It is basically a synonym for “static argument-based dispatch”, but Ruby doesn’t have static dispatch at all. So, the reason why Ruby doesn’t support static dispatch based on the arguments, is because it doesn’t support static dispatch, period. It doesn’t support static dispatch of any kind, whether argument-based or otherwise.
+
+	Eg :-
+
+		class Person
+
+		  def print_details(*args)
+		    case args.size
+		    when 1
+		      "Hey My Name is #{args[0]}"
+		    when 2
+		      "Hey My Name is #{args[0]} and #{args[1]}"
+		    end
+		  end
+
+		end
+
+		person1 = Person.new
+		puts person1.print_details("arun")
+		puts person1.print_details("arun",25)
+
+	Link :-
+
+		https://codedecoder.wordpress.com/2015/04/08/method-overloading-in-ruby/
 
 
 
 
+Method Overriding :-
+
+	method overriding refers to replacing a method of parent class in its subclass. The method definition in the subclass should have same signature as the method in the parent class. So, when a method is called on the subclass object, the overridden method in the subclass will be called
+
+	Eg :-
+
+		class Person
+
+		  def welcome(name,msg,food)
+			puts "Hi #{name}"
+			puts "Hi #{msg}"
+			puts "I will cook #{food} for you"
+		  end
+
+		end
+
+		class Indian < Person
+
+		  def welcome(name,msg,food)
+			puts "sorry..I do not know you"
+		  end
+
+		end
+
+		puts "************welcome in parent class*************"
+		Person.new.welcome("arunow are you", "pizaa")
+
+		puts "\n\n************welcome in subclass*************"
+		Indian.new.welcome("arunamaste..kaise hain app", "rice")
+
+
+	Link :-
+	https://codedecoder.wordpress.com/2015/04/08/method-overriding-ruby-super/	
+
+Super :-
+
+	super call the parent method implicitly. Obviously , you need to pass the arguments to the parent method. but super is not invoked as a normal method. super itself decide what argument to passed to the parent method when it is invoked in the subclass method, depending on the way , it is called.
+
+	Eg :-
+
+		class Person
+
+		  def welcome(name,msg,food)
+			puts "Hi #{name}"
+			puts "#{msg}"
+			puts "I will cook #{food} for you"
+		  end
+
+		end
+
+		class Indian < Person
+
+		  def welcome(name,msg,food)
+		    super
+		    puts "I will show you bollywood movie"
+		  end
+
+		end
+
+
+		puts "************welcome in subclass*************"
+		Indian.new.welcome("arunamaste..kaise hain app", "rice")
+
+
+What is the function of ORM in Ruby on Rails? :-
+
+	Link :-
+
+	https://web.stanford.edu/~ouster/cgi-bin/cs142-fall10/lecture.php?topic=activeRecord
+
+
+	Object Relational Mapping (ORM): simplify the use of databases in applications.
+	Use objects to hold database records
+	One class for each table in the database
+	Objects of the class correspond to rows in the table
+	Attributes of an object correspond to columns from the row
+	Manage the movement of information between objects and the back-end database.
+	Manage relationships between tables (joins), turn into linked data structures.
+
+	ORM is virtual mapping of pure ruby classes directly into the database. Its functions :-
+
+		Manages all the different database specific code into one common api which makes Rails Database Independent.
+		Sql free Querying.
+		Handles RelationShips between models . You don’t have to write complex sql join queries, ORM handles it for you.
+		Code Abstraction at base level which helps to manage the code and write logic in models.
+		Caching , ActiveRecord (ex of ORM) caches queries and serves them without hitting our db which helps in performance.
+		Multiple Stream of database connections, making it possible to update data at same time.
+		Maintains Domain Model Pattern . Accessing the Object model rather than database itself is Domain Model Pattern
+
+		Object Relational Mapping is a way to manage database data by "mapping" database tables to classes and instances of classes to rows in those tables.
+
+
+Asset Pipeline :-
+
+	The asset pipeline provides a framework to concatenate and minify or compress JavaScript and CSS assets. It also adds the ability to write these assets in other languages and pre-processors such as CoffeeScript, Sass and ERB. It allows assets in your application to be automatically combined with assets from other gems. For example, jquery-rails includes a copy of jquery.js and enables AJAX features in Rails.
 
 
 
 
+Yield and content_for :-
+
+https://stackoverflow.com/questions/13150983/rails-what-is-the-difference-between-content-for-and-yield
+http://railscasts.com/episodes/8-layouts-and-content-for
+http://www.bogotobogo.com/RubyOnRails/RubyOnRails_Layouts_and_Rendering_1_yield_content_for.phpscript
+
+
+
+Components in Rails :-
+
+	ActionMailer :-
+
+		It manage email support for rails.
+
+	ActionPack :-
+
+		It is responsible for mapping the incoming request i,e URL to a controller action and then rendering the corresponding  view
+
+	ActionView :-
+
+		It is responsible for rendering the view
+
+	ActiveJob :-
+
+		Active Job is a framework for declaring jobs and making them run on a variety of queueing backends.
+
+	ActiveModel :-
+
+		They are responsible for model name introspections, conversions, translations and validations .
+
+	ActiveRecord :-
+
+		They are responsible to map your model with your ORM database. Remember when you do @user.save, the user detail directly get saved in users table.this mapping is getting handled with ActiveRecord. 
+
+	ActiveSupport :-
+
+		ActiveSupport is a compatibility library including methods that aren’t necessarily specific to Rails.
+		ActiveSupport includes methods like how Rails changes words from single to plural, or CamelCase to snake_case. 
+
+	Bundler :-
+
+		It is responsible to manage all your gem dependency .
+
+	Railities :-
+
+		Railties is responsible for gluing all frameworks together. Overall, it:
+			->handles the bootstrapping process for a Rails application
+			->manages the rails command line interface;
+			->and provides the Rails generators core.
+
+	sprockets-rails :-
+
+		 It use to manage your assets pipeline introduced since rails 3.1. Initially it was a core feature of rails but has moved into separate gem sprockets-rails since rails 4.0, so that it can be refactored and develop independently .
+
+	 Gems :-
+
+	 	They are independent library, which you keep adding as per your need.
+
+	Link :-
+
+		https://codedecoder.wordpress.com/2015/04/15/components-rails/
+
+How rails boot : order of config files loading :-
+
+	Thinking on it for long, but only today get time to delve into it. Have you ever get curious of what going under the hood when you start the rails server, how your rails application get booted, when your gem gets loaded and config files get executed. Well there goes a lot of thing between you type rails s on your project folder from terminal and go to localhost:3000 in your browser.
+
+	So, now you can see the order in which the files is getting loaded are as below:
+	Gemfile   -> boot.rb    ->  config/application.rb   -> basic server message get printed  -> config/environments/development.rb  ->  files in initializer foler  ->  config/routes.rb  ->  config/environment.rb  ->  config.ru
+
+	Link :-
+
+		https://codedecoder.wordpress.com/2015/04/10/how-rails-boot-initialization-order-of-config-files-loading/#comments		
+
+Overflow filesystem mounted as /tmp in linux :-
+
+	If your “/tmp” mount on a linux filesystem is mounted as overflow (often sized at 1MB), this is likely due to you not specifying “/tmp” as its own partition and your root filesystem filled up and “/tmp” was remounted as a fallback. To fix this after you’ve cleared space, just unmount the fallback and it should remount at its original point:
+
+	sudo umount overflow
+
+	Link :-
+
+		http://jarrodoverson.com/blog/overflow-filesystem-in-linux/
+
+Mixin :-
+
+	include, prepend and extend. prepend is introduced with Ruby 2.0. Lets see, how they work and differ from each other.
+
+	include and prepend add the module method as instance method, while extend add it as class method.
+
+	Link :-
+		https://codedecoder.wordpress.com/2016/06/20/mixin-in-ruby-include-prepend-extend/		
+
+polymorphism in ruby :-
+
+	 Polymorphism is object oriented programing approach where a interface behave differently depending on nature of the object.
+
+	 Eg :-
+
+		 class Welcome
+
+		  def meets
+		    puts "meets a person"
+		  end
+
+		  def greet(person)
+		    person.greet
+		  end
+
+		  def treat(person)
+		    person.treat
+		  end
+
+		end
+
+		class Englishman
+
+		  def greet
+		    puts "Hi..how are you?"
+		  end
+
+		  def treat
+		    puts "Iam serving you English food"
+		  end
+
+		end
+
+
+		class Indian
+
+		  def greet
+		    puts "Namste...kaise hain app"
+		  end
+
+		  def treat
+		    puts "Iam serving you Indian food"
+		  end
+
+		end
+
+		welcome = Welcome.new
+		puts "********Englishman***********"
+		person = Englishman.new
+		welcome.greet(person)
+		welcome.treat(person)
+
+
+		puts "********Indian***********"
+		person = Indian.new
+		welcome.greet(person)
+		welcome.treat(person)
+
+	Link :-
+
+		https://codedecoder.wordpress.com/2015/04/07/polymorphism-in-ruby-duck-typing-with-example/#respond
+
+
+Dup and Clone :-
 
 
 
 
+	When dealing with ActiveRecord there's a significant difference too:
+
+		dup creates a new object without its id being set, so you can save a new object to the database by hitting .save
+
+		category2 = category.dup
+		#=> #<Category id: nil, name: "Favorites"> 
+		clone creates a new object with the same id, so all the changes made to that new object will overwrite the original record if hitting .save
+
+		category2 = category.clone
+		#=> #<Category id: 1, name: "Favorites">
+
+
+	Subclasses may override these methods to provide different semantics. In Object itself, there are two key differences.
+
+		First, clone copies the singleton class, while dup does not.
+
+		o = Object.new
+		def o.foo
+		  42
+		end
+
+		o.dup.foo   # raises NoMethodError
+		o.clone.foo # returns 42
+		Second, clone preserves the frozen state, while dup does not.
+
+		class Foo
+		  attr_accessor :bar
+		end
+		o = Foo.new
+		o.freeze
+
+		o.dup.bar = 10   # succeeds
+		o.clone.bar = 10 # raises RuntimeError		
+
+	Link :-
+	
+		https://stackoverflow.com/questions/10183370/whats-the-difference-between-rubys-dup-and-clone-methods/10183434
+
+Send Method :-
+
+	In Ruby, class(s) are also objects, so you can call the #send method on the class also.
+
+	Object#send gives you access to all methods of a particular object (even protected and private ones).
+	obj.send(:method [, args...])
+	In case send method has been overwritten, you can also use its aliased version __send__.
+
+	Eg :-
+
+		class MyClass
+		  def self.my_class_method
+		    puts "class method"
+		  end
+
+		  private
+
+		  def my_method
+		    puts "regular method"
+		  end
+
+		  private_class_method :my_class_method
+		end
+
+		# to call class method
+		MyClass.send :my_class_method # => class method
+		# to call instance method
+		MyClass.new.send :my_method # => regular method			
+
+	Link :-
+
+	https://stackoverflow.com/questions/27859296/how-to-access-private-class-methods-in-ruby
 
 
 
+DIFFERENCE BETWEEN PROC and LAMBDA :-
 
+	As you have seen above, both Proc.new and lambda is used to create Proc object. lambda is stricter implementation of Proc object. These are the main defference:
+
+		lambda raise exception if required number of argument is not passed
+		proc does not return any value and lamda return value
+
+	=> lambda raise exception if required number of argument is not passed .
+		NOTE : You can use proc for Proc.new . proc is shorthand of Proc.new
+		A Proc object generated by proc ignores extra arguments.
+		proc {|a,b| [a,b] }.call(1,2,3) # output => [1,2]
+		A Proc object generated by proc provides nil for missing arguments.
+		proc {|a,b| [a,b] }.call(1) # output => [1,nil]
+		A Proc object generated by proc expands a single array argument.
+		proc {|a,b| [a,b] }.call([1,2]) # output => [1,2]
+
+		A Proc object generated by lambda doesn’t have such tricks.
+
+		It throw ArgumentError exception.
+		lambda {|a,b| [a,b] }.call(1,2,3) # output => ArgumentError
+		lambda {|a,b| [a,b] }.call(1) # output => ArgumentError
+		lambda {|a,b| [a,b] }.call([1,2]) # output => ArgumentError
+
+
+	=> the use of return in proc and lambda
+		lambda returns out of itself, and proc returns out of itself AND the function that called it. let us illustrate it.
+		def proc_return
+		  proc_obj = proc do 
+		    puts "Iam in Proc object created with proc"
+		    return "Hello"
+		  end
+		  puts proc_obj.call
+		  puts "How are you"
+		end
+
+		def lambda_return
+		  lambda_obj = lambda do 
+		    puts "Iam in Proc object created with lambda"
+		    return "Hello"
+		  end
+		  puts lambda_obj.call
+		  puts "How are you"
+		end
+
+		puts "output of proc_return"
+		proc_return
+
+		puts "output of lambda_return"
+		lambda_return
+		Now run the file to see the output
+		arun@arun-yadav:~$ ruby /home/arun/proc_demo.rb
+		output of proc_return
+		Iam in Proc object created with proc
+		output of lambda_return
+		Iam in Proc object created with lambda
+		Hello
+		How are you
+		So you can easily see that, when return called in a Proc object control immediately exit from the proc object as well as the method calling the proc object and so in out put no line after the return statement get printed. But you can see that lambda behave as expected, it return from proc object and other lines in the method get executed.
+		NOTE : proc is full of surprise. always use lambda to implement a Proc object
+
+	Link :- 
+
+		https://codedecoder.wordpress.com/2013/10/04/difference-between-proc-and-lambda-in-ruby/
+
+
+DIFFERENCE BETWEEN LOAD AND REQUIRE :-
+
+	1=> File Extension need to be specified with load but not with require
+	2=> in any current scope, require compile the file only first time it is encountered, load do it every time.
+
+	Link :-
+
+	https://codedecoder.wordpress.com/2013/09/23/require-and-load-in-ruby-loaderror-cannot-load-such-file/
+	
 
 
 

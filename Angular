@@ -322,10 +322,340 @@
 				});				
 
 
+18. Service/Factory/Provider
+
+app.service('MyService', function () {
+  this.sayHello = function () {
+    console.log('hello');
+  };
+});
+
+
+.service() is a method on our module that takes a name and a function that defines the service. Pretty straight forward. Once defined, we can inject and use that particular service in other components, like controllers, directives and filters, like this:
+
+app.controller('AppController', function (MyService) {
+  MyService.sayHello(); // logs 'hello'
+});
+
+Okay, clear. Now the same thing as a factory:
+
+app.factory('MyService', function () {
+  return {
+    sayHello: function () {
+      console.log('hello');
+    }
+  }
+});
+
+Again, .factory() is a method on our module and it also takes a name and a function, that defines the factory. We can inject and use that thing exactly the same way we did with the service. 
+
+Well, you might see that instead of working with this in the factory, we’re returning an object literal. Why is that? It turns out, a service is a constructor function whereas a factory is not. Somewhere deep inside of this Angular world, there’s this code that calls Object.create() with the service constructor function, when it gets instantiated. However, a factory function is really just a function that gets called, which is why we have to return an object explicitly.
+
+
+Link:-
+
+https://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
+
+http://www.simplygoodcode.com/2015/11/the-difference-between-service-provider-and-factory-in-angularjs/
+
+https://docs.angularjs.org/api/auto/service/$provide
+
+provider :-
+	You want to be able to configure, during the config phase, the object that is going to be created before it’s created.
+
+mod.provider("greeter", function() {
+    var name;
+
+    this.setName = function(newName) {
+        name = newName;
+    };
+
+    this.$get = function() {
+        return new function() {
+            this.sayHi = function() {
+                console.log("Hi " + name;
+            };
+        };
+    };
+});
+
+mod.config(function(greeterProvider) {
+    greeterProvider.setName(“John");
+});
+
+Difference : -
+
+Factory returns the function return value
+Provider returns the output the function $Get function
+Service returns the actual function
+
+
+Eg:-
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Service / Factory / Provider </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCtrl">
+		<span> Factory Output :<br /> {{factory_output}}</span> <br /> <br />
+		<span> Service Output : <br /> {{service_output}}</span> <br /> <br />
+		<span> Provider Output : <br /> {{provider_output}}</span> <br /> <br />
+	</div>
+<script>
+	var servicefactoryprovider = function()
+	{
+		var website = "http://www.google.com"
+		this.$get = function(){
+			var website = "http://www.yahoo.com"
+			return "Provider output is " + website
+		}
+
+		return "Factory output is " + website
+	}
+
+	var app = angular.module("myApp",[])
+	
+	app.service("myService", servicefactoryprovider)
+	app.factory("myFactory", servicefactoryprovider)
+	app.provider("myProvider", servicefactoryprovider)
+
+	app.controller("myCtrl",function($scope, myService, myFactory, myProvider){
+		$scope.service_output = myService;
+		$scope.factory_output = myFactory;
+		$scope.provider_output = myProvider;
+	});
+
+</script>
+</body>
+</html>
 
 
 
+19. Cross-Site HTTP Requests :-
 
+	Requests for data from a different server (than the requesting page), are called cross-site HTTP requests.
+
+	Cross-site requests are common on the web. Many pages load CSS, images, and scripts from different servers.
+
+	In modern browsers, cross-site HTTP requests from scripts are restricted to same site for security reasons.
+
+	The following line, in our PHP examples, has been added to allow cross-site access.
+
+
+	header("Access-Control-Allow-Origin: *");
+
+20. ng-disabled :-
+
+The ng-disabled directive binds AngularJS application data to the disabled attribute of HTML elements.
+
+21. ng-show :-
+
+The ng-show directive shows or hides an HTML element.
+
+22. ng-hide :-
+
+The ng-hide directive hides or shows an HTML element.
+
+23. AngularJS Events :-
+
+You can add AngularJS event listeners to your HTML elements by using one or more of these directives:
+
+ng-blur
+ng-change
+ng-click
+ng-copy
+ng-cut
+ng-dblclick
+ng-focus
+ng-keydown
+ng-keypress
+ng-keyup
+ng-mousedown
+ng-mouseenter
+ng-mouseleave
+ng-mousemove
+ng-mouseover
+ng-mouseup
+ng-paste
+
+24. Difference between blur and focus :-
+
+	The focus and blur events keep track of the elements the user focuses on.
+
+	focus :-
+
+	Fires when a focusable element gains the focus
+
+	blur :-
+
+	Fires when a focusable element loses the focus
+
+	Link :-
+
+	https://stackoverflow.com/questions/7858979/difference-between-focusin-focusout-and-focus-blur-with-example
+
+25.	Angular.copy :-
+
+	 $scope.master = {firstName:"John", lastName:"Doe"};
+
+	 $scope.user = angular.copy($scope.master);
+
+26. AngularJS Forms :-
+
+	Forms in AngularJS provides data-binding and validation of input controls.
+
+	Input Controls :-
+
+	Input controls are the HTML input elements:
+
+	input elements - text/checkbox/radio
+	select elements
+	button elements
+	textarea elements
+
+27. AngularJS Form Validation :-
+
+	AngularJS monitors the state of the form and input fields (input, textarea, select), and lets you notify the user about the current state.
+
+	Input fields have the following states:
+
+		$untouched - The field has not been touched yet
+		$touched - The field has been touched
+		$pristine - The field has not been modified yet
+		$dirty - The field has been modified
+		$invalid - The field content is not valid
+		$valid - The field content is valid
+
+		They are all properties of the input field, and are either true or false.
+
+	Forms have the following states:
+
+		$pristine No fields have been modified yet
+		$dirty One or more have been modified
+		$invalid The form content is not valid
+		$valid The form content is valid
+		$submitted The form is submitted
+
+		They are all properties of the form, and are either true or false.
+
+	CSS Classes
+	AngularJS adds CSS classes to forms and input fields depending on their states.
+
+	The following classes are added to, or removed from, input fields:
+
+		ng-untouched The field has not been touched yet
+		ng-touched The field has been touched
+		ng-pristine The field has not been  modified yet
+		ng-dirty The field has been modified
+		ng-valid The field content is valid
+		ng-invalid The field content is not valid
+		ng-valid-key One key for each validation. Example: ng-valid-required, useful when there are more than one thing that must be validated
+		ng-invalid-key Example: ng-invalid-required
+
+	The following classes are added to, or removed from, forms:
+
+		ng-pristine No fields has not been modified yet
+		ng-dirty One or more fields has been modified
+		ng-valid The form content is valid
+		ng-invalid The form content is not valid
+		ng-valid-key One key for each validation. Example: ng-valid-required, useful when there are more than one thing that must be validated
+		ng-invalid-key Example: ng-invalid-required
+		The classes are removed if the value they represent is false.
+
+	Eg:-
+
+	  <input type="email" name="email" ng-model="email" required>
+	  <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+	  <span ng-show="myForm.email.$error.required">Email is required.</span>
+	  <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+	  </span>
+
+28. AngularJS API :-
+
+	API stands for Application Programming Interface.
+
+	angular.lowercase()	Converts a string to lowercase
+	angular.uppercase()	Converts a string to uppercase
+	angular.isString()	Returns true if the reference is a string
+	angular.isNumber()	Returns true if the reference is a number
+
+	Eg :-
+
+	$scope.x1 = "JOHN";
+	$scope.x2 = angular.lowercase($scope.x1);
+
+29. AngularJS Includes :-
+
+	AngularJS, you can include HTML content using the ng-include directive,
+
+	<div ng-include="'myFile.htm'"></div>
+
+	Include Cross Domains
+	By default, the ng-include directive does not allow you to include files from other domains.
+
+	To include files from another domain, you can add a whitelist of legal files and/or domains in the config function of your application,
+
+
+	<body ng-app="myApp">
+
+	<div ng-include="'https://tryit.w3schools.com/angular_include.php'"></div>
+
+	<script>
+	var app = angular.module('myApp', [])
+	app.config(function($sceDelegateProvider) {
+	    $sceDelegateProvider.resourceUrlWhitelist([
+	        'https://tryit.w3schools.com/**'
+	    ]);
+	});
+	</script>
+
+	</body>
+
+	Link:-
+
+	https://www.w3schools.com/angular/angular_includes.asp
+
+
+30. $routeProvider and $stateProvider :-
+
+	Link :-
+
+	https://itexpertsconsultant.wordpress.com/2016/01/25/routeprovider-vs-stateprovider-in-angularjs/
+	https://ivanproskuryakov.github.io/publications/AngularJS-routeProvider-and-stateProvider/
+	http://findnerd.com/list/view/Angularjs-difference-between-routeprovider-and-stateprovider/8338/
+
+31. Where should I put <script> tags in HTML markup?
+
+	The old approach to solving this problem was to put <script> tags at the bottom of your <body>, because this ensures the parser isn't blocked until the very end.
+
+	The old approach to solving this problem was to put <script> tags at the bottom of your <body>, because this ensures the parser isn't blocked until the very end.
+
+	The modern approach
+
+	Today, browsers support the async and defer attributes on scripts. These attributes tell the browser it's safe to continue parsing while the scripts are being downloaded.
+
+	async :-
+
+		<script type="text/javascript" src="path/to/script1.js" async></script>
+		<script type="text/javascript" src="path/to/script2.js" async></script>
+		Scripts with the async attribute are executed asynchronously. This means the script is executed as soon as it's downloaded, without blocking the browser in the meantime.
+		This implies that it's possible to script 2 is downloaded & executed before script 1.
+
+
+	defer :-
+
+		<script type="text/javascript" src="path/to/script1.js" defer></script>
+		<script type="text/javascript" src="path/to/script2.js" defer></script>
+		Scripts with the defer attribute are executed in order (i.e. first script 1, then script 2). This also does not block the browser.
+
+		Unlike async scripts, defer scripts are only executed after the entire document has been loaded.
+
+
+	Link :-
+		https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup
 
 
 
