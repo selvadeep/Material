@@ -1,0 +1,180 @@
+1. JavaScript Output :-
+
+	JavaScript can "display" data in different ways:
+
+		Writing into an HTML element, using innerHTML.
+		Writing into the HTML output using document.write().
+		Writing into an alert box, using window.alert().
+		Writing into the browser console, using console.log().
+
+2. JavaScript Data Types :-
+
+	JavaScript variables can hold many data types: numbers, strings, objects and more:		
+
+		var length = 16;                               // Number
+		var lastName = "Johnson";                      // String
+		var x = {firstName:"John", lastName:"Doe"};    // Object	
+
+	Eg:-
+
+		typeof "John"              // Returns "string" 
+		typeof 3.14                // Returns "number"
+		typeof true                // Returns "boolean"
+		typeof false               // Returns "boolean"
+		typeof x                   // Returns "undefined" (if x has no value)
+		typeof {name:'John', age:34} // Returns "object"
+		typeof [1,2,3,4]             // Returns "object" (not "array", see note below)
+		typeof null                  // Returns "object"
+		typeof function myFunc(){}   // Returns "function"
+
+3. Accessing Object Properties :-
+
+	You can access object properties in two ways:
+
+		objectName.propertyName
+		or
+
+		objectName["propertyName"]
+
+	Eg :-		
+
+		var person = {
+		    firstName:"John",
+		    lastName:"Doe"
+		};
+
+		person.lastName;
+		person["lastName"];
+
+4. Scope for Local and Global Variable :-		
+
+	In JavaScript there are two types of scope:
+
+	Local scope :-
+
+		Variables declared within a JavaScript function, become LOCAL to the function.
+		Local variables have local scope: They can only be accessed within the function.
+
+	Global scope
+
+		A variable declared outside a function, becomes GLOBAL.
+		A global variable has global scope: All scripts and functions on a web page can access it. 
+
+	The Lifetime of JavaScript Variables
+		
+		Local Variable :-
+
+		The lifetime of a JavaScript variable starts when it is declared.
+		Local variables are deleted when the function is completed.
+		
+		Global Variable :-
+
+		In a web browser, global variables are deleted when you close the browser window (or tab), but remains available to new pages loaded into the same window.
+
+5. HTML Events :-
+
+	An HTML event can be something the browser does, or something a user does.
+
+	Event	    	Description
+	onchange		An HTML element has been changed
+	onclick			The user clicks an HTML element
+	onmouseover		The user moves the mouse over an HTML element
+	onmouseout		The user moves the mouse away from an HTML element
+	onkeydown		The user pushes a keyboard key
+	onload	    	The browser has finished loading the page
+
+6. JavaScript Strings :-
+
+	A JavaScript string simply stores a series of characters like "John Doe".
+	A string can be any text inside quotes. You can use single or double quotes:
+
+	Eg :-
+	var carname = "Volvo XC60";
+	var carname = 'Volvo XC60';
+
+	Methods :-
+
+	var str = "Please locate where 'locate' occurs!";
+
+	str.length 					- 	length property returns the length of a string
+	str.indexOf("locate") 		- 	first occurrence of a specified text in a string
+	str.lastIndexOf("locate") 	- 	last occurrence of a specified text in a string
+	str.indexOf("locate",15)	-	second parameter as the starting position for the search
+	str.search("locate")  		- 	searches a string for a specified value and returns the position
+	slice(start, end)			-	str.slice(-12, -6) you can negative range also
+	substring(start, end)		-   only positive numbers as range
+	substr(start, length)		-   extract the text from string with specified starting value and length
+	str.replace("locate", "L")	-	replaces a specified value with another value in a string
+	str.replace(/locate/g, "L") -	replace all matches, use a regular expression with a /g flag
+	str.toUpperCase()			- 	converting all characters to uppercase
+	str.toLowerCase()			- 	converting all characters to lowercase
+	text1.concat("str", str1)	-	joins two or more strings
+	charAt(position)			- 	returns the character with specified position
+	charCodeAt(position)		-	returns the unicode of the character with specified position
+	str.split(" ")    			-   Split on spaces
+
+7. JavaScript Hoisting :-
+	
+	In JavaScript, a variable can be declared after it has been used.
+
+	In other words; a variable can be used before it has been declared
+
+	Eg :-
+
+	x = 5; // Assign 5 to x
+
+	elem = document.getElementById("demo"); // Find an element 
+	elem.innerHTML = x;                     // Display x in the element
+
+	var x; // Declare x	
+
+8.  "use strict" Directive :-
+
+	The "use strict" directive is new in JavaScript 1.8.5 (ECMAScript version 5).
+	The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
+
+
+9.  Call and Apply :-
+
+	foo.call( context, param1, param2, param3 );
+	foo.apply( context, [param1, param2, param3 ]);
+
+	Note: Only difference between the ‘call’ and ‘apply’ is the way to you pass the parameters to them. The former takes parameters as comma separated while the latter takes only array of parameters. Honestly, I don’t know why there are two implementations.
+
+	Link :-	
+
+	https://hangar.runway7.net/javascript/difference-call-apply
+	https://www.undefinednull.com/2014/06/26/explaining-call-and-apply-in-javascript-through-mr-dot-dave/
+
+
+	var You = {
+	    name: 'You',
+	    age:    '29',
+	    getIdNumber: function(){
+	        return 'your id number';  }}
+
+
+	Now you can borrow Dave’s method using call or apply.
+
+	var davesMethodForFlightBooking = Dave.bookCheapFlightTickets;
+	// using call
+	var bookedTicket = davesMethodForFlightBooking.call(You, place, numberOfPeople, paymentDetails);
+	// using apply
+	var bookedTicket = davesMethodForFlightBooking.apply(You, [place, numberOfPeople, paymentDetails]);        
+
+
+
+It's a good practice to add an index on the foreign key to improve queries performance and a foreign key constraint to ensure referential data integrity:
+
+class CreateBooks < ActiveRecord::Migration[5.0]
+  def change
+    create_table :books do |t|
+      t.datetime :published_at
+      t.string   :book_number
+      t.integer  :author_id
+    end
+ 
+    add_index :books, :author_id
+    add_foreign_key :books, :authors
+  end
+end
