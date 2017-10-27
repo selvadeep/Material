@@ -1683,6 +1683,169 @@ Gem / Plugins / Railties / Engine :-
 		http://hawkins.io/2012/03/defining_plugins_gems_railties_and_engines/
 
 
-		
+Difference between Gem and Gemfile.lock :-
+
+	Usually we write dependencies in Gemfile as:
+
+	gem "nokogiri", "~> 1.4.4"
+	gem 'bcrypt-ruby', '~> 3.0.0'
+	gem 'uglifier', '>= 1.2.3'
+	..
+	Here you basically say: "I want nokogiri as long as it’s greater than version 1.4.4", etc. Now suppose that I have set up my Gemfile 8 months ago and I successful setup my app with this requirement. 8 months ago nokogiri version was 1.4.4. My rails apps was running perfectly without any problems with this version.
+
+	Now think I'm trying to build with the same Gemfile. But if we look at nokogiri versions we see that the current stable version has changed to 1.4.9. That means if we try to build, bundler will install version 1.4.9 of nokogiri (suppose we don't have Gemfile.lock).
+
+	What does it mean ?
+
+	As you see if you don't have any Gemfile.lock and run:
+
+	bundle install
+	then the currently used gems can be different at any time. Your app used the version 1.4.4 and it works 8 months ago without any problems, but if you try to build it now you get the version 1.4.9. Maybe it's broken with the latest version of nokogiri, the awesome feature you used with 1.4.4 is not more available, etc..
+
+	To prevent this kind of problem Gemfile.lock is used. In Gemfile.lock only the exact versions are written and thus only these will be installed. That means if you distribute your app with a Gemfile.lock, every machine will have the same gems installed and most important they all get the same version. This will give you a stable and common deployment stack.
+
+	How is Gemfile.lock created?
+
+	It is automatically created with the first:
+
+	bundle install
+	command. After that everytime you run bundle install, bundle will first look up Gemfile.lock and install the gems specified there. It's an habit to distribute this file among your projects to provide consistently and stability.
+
+	How to update Gemfile.lock?
+
+	If you're happy with the the latest version of your apps than you can update Gemfile.lock. Just reflect your changes to Gemfile. That means change the dependencies to the new exact versions in Gemfile. After that run:
+
+	bundle install
+	This will update you Gemfile.lock with your newest version of apps
+
+	Link :-
+
+		https://stackoverflow.com/questions/6927442/what-is-the-difference-between-gemfile-and-gemfile-lock-in-ruby-on-rails		
 
 
+RubyGem Version Specifiers :-
+
+	Pessimistic Version	| Range Restriction, 
+
+	gem(‘nokogiri’, ‘~> 1.0’)	gem(‘nokogiri’, ‘>= 1.0’, ‘< 2.0’)
+	gem(‘nokogiri’, ‘~> 1.5.0’)	gem(‘nokogiri’, ‘>= 1.5.0’, ‘< 1.6.0’)
+	gem(‘nokogiri’, ‘~> 1.5.3’)	gem(‘nokogiri’, ‘>= 1.5.3’, ‘< 1.6.0’)
+
+	gem('nokogiri', '>= 1.0.0', '< 2.0.0') - Which means that you’ll take any version of Nokogiri starting at 1.0.0 but not 2.0.0 or higher 
+
+	Link :-
+
+	https://www.devalot.com/articles/2012/04/gem-versions.html
+
+
+Preload, Eagerload, Includes and Joins :-
+
+
+	Rails provides four different ways to load association data. In this blog we are going to look at each of those.
+
+	Preload :-
+
+		Preload loads the association data in a separate query.
+
+		User.preload(:posts).to_a
+
+		# =>
+		SELECT "users".* FROM "users"
+		SELECT "posts".* FROM "posts"  WHERE "posts"."user_id" IN (1)
+		This is how includes loads data in the default case.
+
+		Since preload always generates two sql we can’t use posts table in where condition. Following query will result in an error.
+
+		User.preload(:posts).where("posts.desc='ruby is awesome'")
+
+		# =>
+		SQLite3::SQLException: no such column: posts.desc:
+		SELECT "users".* FROM "users"  WHERE (posts.desc='ruby is awesome')
+		With preload where clauses can be applied.
+
+		User.preload(:posts).where("users.name='Neeraj'")
+
+		# =>
+		SELECT "users".* FROM "users"  WHERE (users.name='Neeraj')
+		SELECT "posts".* FROM "posts"  WHERE "posts"."user_id" IN (3)
+	
+	Includes :-
+
+		Includes loads the association data in a separate query just like preload.
+
+		However it is smarter than preload. Above we saw that preload failed for query User.preload(:posts).where("posts.desc='ruby is awesome'"). Let’s try same with includes.
+
+		User.includes(:posts).where('posts.desc = "ruby is awesome"').to_a
+
+		# =>
+		SELECT "users"."id" AS t0_r0, "users"."name" AS t0_r1, "posts"."id" AS t1_r0,
+		       "posts"."title" AS t1_r1,
+		       "posts"."user_id" AS t1_r2, "posts"."desc" AS t1_r3
+		FROM "users" LEFT OUTER JOIN "posts" ON "posts"."user_id" = "users"."id"
+		WHERE (posts.desc = "ruby is awesome")
+		As you can see includes switches from using two separate queries to creating a single LEFT OUTER JOIN to get the data. And it also applied the supplied condition.
+
+		So includes changes from two queries to a single query in some cases. By default for a simple case it will use two queries. Let’s say that for some reason you want to force a simple includes case to use a single query instead of two. Use references to achieve that.
+
+		User.includes(:posts).references(:posts).to_a
+
+		# =>
+		SELECT "users"."id" AS t0_r0, "users"."name" AS t0_r1, "posts"."id" AS t1_r0,
+		       "posts"."title" AS t1_r1,
+		       "posts"."user_id" AS t1_r2, "posts"."desc" AS t1_r3
+		FROM "users" LEFT OUTER JOIN "posts" ON "posts"."user_id" = "users"."id"
+		In the above case a single query was done.
+
+	Eager load :-
+
+		eager loading loads all association in a single query using LEFT OUTER JOIN.
+
+		User.eager_load(:posts).to_a
+
+		# =>
+		SELECT "users"."id" AS t0_r0, "users"."name" AS t0_r1, "posts"."id" AS t1_r0,
+		       "posts"."title" AS t1_r1, "posts"."user_id" AS t1_r2, "posts"."desc" AS t1_r3
+		FROM "users" LEFT OUTER JOIN "posts" ON "posts"."user_id" = "users"."id"
+		This is exactly what includes does when it is forced to make a single query when where or order clause is using an attribute from posts table.
+
+	Joins :-
+
+		Joins brings association data using inner join.
+
+		User.joins(:posts)
+
+		# =>
+		SELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."user_id" = "users"."id"
+		In the above case no posts data is selected. Above query can also produce duplicate result. To see it let’s create some sample data.
+
+		def self.setup
+		  User.delete_all
+		  Post.delete_all
+
+		  u = User.create name: 'Neeraj'
+		  u.posts.create! title: 'ruby', desc: 'ruby is awesome'
+		  u.posts.create! title: 'rails', desc: 'rails is awesome'
+		  u.posts.create! title: 'JavaScript', desc: 'JavaScript is awesome'
+
+		  u = User.create name: 'Neil'
+		  u.posts.create! title: 'JavaScript', desc: 'Javascript is awesome'
+
+		  u = User.create name: 'Trisha'
+		end
+		With the above sample data if we execute User.joins(:posts) then this is the result we get
+
+		#<User id: 9, name: "Neeraj">
+		#<User id: 9, name: "Neeraj">
+		#<User id: 9, name: "Neeraj">
+		#<User id: 10, name: "Neil">
+		We can avoid the duplication by using distinct .
+
+		User.joins(:posts).select('distinct users.*').to_a
+		Also if we want to make use of attributes from posts table then we need to select them.
+
+		records = User.joins(:posts).select('distinct users.*, posts.title as posts_title').to_a
+		records.each do |user|
+		  puts user.name
+		  puts user.posts_title
+		end
+		Note that using joins means if you use user.posts then another query will be performed.
