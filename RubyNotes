@@ -1849,3 +1849,25 @@ Preload, Eagerload, Includes and Joins :-
 		  puts user.posts_title
 		end
 		Note that using joins means if you use user.posts then another query will be performed.
+
+    Link :-
+
+    https://blog.bigbinary.com/2013/07/01/preload-vs-eager-load-vs-joins-vs-includes.html
+    http://blog.scoutapp.com/articles/2017/01/24/activerecord-includes-vs-joins-vs-preload-vs-eager_load-when-and-where		
+
+Difference between find and where :-
+
+	where returns an ActiveRecord::Relation (not an array, even though it behaves much like one), which is a collection of model objects. If nothing matches the conditions, it simply returns an empty relation.
+
+	find (and its related dynamic find_by_columnname methods) returns a single model object. If nothing is found, an ActiveRecord::RecordNotFound exception is raised (but not with the dynamic find_by_ methods).
+
+	While find can return an Array of records—not a Relation—if given a list of IDs, using where is preferred since Rails 3. Many similar uses of find are now deprecated or gone entirely.
+
+find() versus find_by_id() :-
+
+	What’s the difference between find() and find_by_id()?
+
+	find() returns an ActiveRecord error if the id is not found
+	find_by_id() returns nil if the id is not found
+
+

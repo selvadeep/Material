@@ -1,0 +1,43 @@
+kr moorthy housing 9884741393
+
+1	Styling with Bootstrap Sass :-
+
+	Create a new application,
+		rails new bookstore
+	
+	Generate the scaffold command,
+		rails g scaffold Book name description:text
+
+	Add the below line in Gemfile,
+		gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+
+	Rename the file,
+		mv app/assets/stylesheets/application.css app/assets/stylesheets/applicaiton.css.scss
+
+	inside the file(applicaiton.css.scss) add the below line,
+		@import "bootstrap"	;
+
+	Take the code from navbar(Toggle Navigation Bar) in getbootstrap site(https://getbootstrap.com/components/#navbar)	and paste in it inside the file(app/views/shared/_navbar.html.erb)
+
+	Inside the application.html.erb just paste the below line,
+
+		<%= render partial: "shared/navbar" %>
+
+	Inside the app/assets/javascripts/application.js file enter the below line,
+
+		//= require bootstrap
+
+2	Debugging With BetterErrors
+	
+	Provides a better error page for Rails and other Rack apps. Includes source code inspection, a live REPL and local/instance variable inspection for all stack frames.
+
+	Add the below line in Gemfile,
+
+		group :development do
+		  gem "better_errors"
+		  gem "binding_of_caller"
+		end
+
+	Link :-
+		https://github.com/charliesome/better_errors
+
