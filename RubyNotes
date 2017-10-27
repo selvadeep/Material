@@ -1871,3 +1871,81 @@ find() versus find_by_id() :-
 	find_by_id() returns nil if the id is not found
 
 
+Difference between SOAP an REST protocal :-
+
+Difference between Filter and Callback 
+
+What is the use of concern folder in rails
+
+Link :-
+
+http://rorguide.blogspot.in/2011/07/difference-between-validations.html
+
+
+Difference between :before_save and :before_create :-
+
+	In a create operation under Rails, there are six callbacks before the database operation, and two after. In order, these are:
+
+	before_validation
+	before_validation_on_create
+	after_validation
+	after_validation_on_create
+	before_save
+	before_create 
+
+	DATABASE INSERT
+	after_create
+	after_save
+	Update operations have exactly the same set, except read update instead of create everywhere (and UPDATE instead of INSERT).
+
+	From this, you can see that validation is carried out before the before_save and before_create callbacks.
+
+	The before_save occurs slightly before the before_create. To the best of my knowledge, nothing happens between them; but before_save will also fire on Update operations, while before_create will only fire on Creates.
+
+
+	before_save is called every time an object is saved. So for new and existing objects. (create and update action)
+
+	before_create only before creation. So only for new objects (create action)
+
+
+Filter :-
+
+Filters are methods that are run before, after or “around” a controller action.
+
+	Link :-
+
+	https://railskey.wordpress.com/2011/09/03/rails-filters-before-after-and-around-filters/
+
+	POSTGRESQL	MYSQL
+ANSI SQL compliance	Closer to ANSI SQL standard	Follows some of the ANSI SQL standards
+Performance	Slower	Faster
+Sub-selects	Yes	No
+Transactions	Yes	Yes, however InnoDB table type must be used
+Database replication	Yes	Yes
+Foreign key support	Yes	No
+Views	Yes	No
+Stored procedures	Yes	No
+Triggers	Yes	No
+Unions	Yes	No
+Full joins	Yes	No
+Constraints	Yes	No
+Windows support	Yes	Yes
+Vacuum (cleanup)	Yes	No
+ODBC	Yes	Yes
+JDBC	Yes	Yes
+Different table types	No	Yes	
+
+
+PostgreSQL
+
+PostgreSQL is developed by the PostgreSQL Global Development Group, a diverse group of multiple companies and individual contributors. 
+
+It’s free and open-source software. PostgreSQL is released under the PostgreSQL license, a liberal Open Source license, similar to the BSD or MIT licenses.
+
+MySQL
+
+The MySQL development project has made its source code available under the terms of the GNU General Public License, as well as a variety of proprietary agreements. 
+ 
+It’s now owned by Oracle Corporation and offers several paid editions for proprietary use.
+
+
