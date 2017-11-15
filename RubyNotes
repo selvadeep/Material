@@ -1949,3 +1949,91 @@ The MySQL development project has made its source code available under the terms
 It’s now owned by Oracle Corporation and offers several paid editions for proprietary use.
 
 
+Garbage collection :-
+
+  Explain the concepts and capabilities of garbage collection feature of Ruby.
+
+	Garbage collection is the process of reclaiming the memory space. Ruby avoids memory leaks at a great extent. Ruby performs garbage collection automatically. The memory resource management for allocation and deallocation is not hard coded. Dynamic storage space allocation in the memory space is done there by avoiding scores of application crashes.
+	Explain the concepts and capabilities of garbage collection feature of Ruby.
+
+	- Ruby is an object oriented language and every object oriented language tends to allocate many objects during execution of the program.
+	- Ruby deletes unallocated and unused objects automatically.
+	- This feature can be controlled by applying proper syntax and program through ruby.
+
+	Link :-
+
+	http://www.careerride.com/Ruby-garbage-collection.aspx
+
+Class Library :-
+
+	Ruby class libraries comprise of variety of domains, such as thread programming, data types, various domains. It has additional libraries evolving day by day. The following are the domains which has relevant class libraries.
+
+	Text processing - File, String, Regexp for quick and clean text processing.
+
+	CGI Programming - There are supporting class library for CGI programming support like, data base interface, eRuby, mod_ruby for Apache, text processing classes.
+
+	Network programming – Various well-designed sockets are available in ruby for network programming.
+
+	GUI programming – Ruby/Tk and Ruby/Gtk are the classes for GUI programming
+
+	XML programming – UTF-8 text processing regular expression engine make XML programming very handy in ruby.
+	Describe class libraries in Ruby.
+
+	- The Ruby standard library extends the foundation of the Ruby built-in library with classes and abstractions for a variety of programming needs, including network programming, operating system services, threads, and more.
+	- These classes provide flexible capabilities at a high level of abstraction, giving you the ability to create powerful Ruby scripts useful in a variety of problem domains.	
+
+	Link :-
+
+	http://www.careerride.com/Ruby-class-libraries.aspx
+
+	
+
+
+
+Mock and Stub in Rspec
+Factory Rspec
+Let Rspec
+SQL Injection
+Delegates
+Prepend filters
+Memoyz
+Open struct
+How to call method dynamically?
+How to define method dynamically?
+Include and Joins
+Api
+How many caching techniques and how many have you used?
+Asset Pipeline
+Flattern and Compact in Array
+CSRF
+Git merge/reverse/amend/jelbig
+
+Object oriented programming in ruby
+What is abstraction and how to use in abstraction in ruby?
+What is encapsulation and how to use in encasulation in ruby?
+What is inheritance and types?
+Nil and Blank 
+Present and Blank
+Include and Present
+Null and undefined in JS
+How to call third party url and get the response?
+What object you defined to call filters and callbacks?
+Access Specifier
+Variable and types
+At what cases global variable used and drawbacks of global variable
+Asset Pipeline
+why you are not using asset:precompile in development mode not in production?
+Fingerprint in rails
+Why you are calling instance method and why not class method?
+Do you have alternative for global variable?
+Callbacks/filters and types
+Method chaining in JS/JQuery
+Require in JS
+What is AJAX and Callbacks in AJAX
+Syntax of AJAX(Header,Body,Success,Failure)
+
+
+
+
+
+
